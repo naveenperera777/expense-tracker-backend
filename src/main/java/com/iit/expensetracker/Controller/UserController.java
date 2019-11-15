@@ -26,8 +26,17 @@ public class UserController extends ResponseController {
         return sendResponse(userService.saveUser(userDto));
     }
 
-//    @GetMapping
-//    public Respo
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getUserById(@PathVariable("id") String userId){
+        logger.info("HIT---> Retrieve user id {}", userId);
+        return sendResponse(userService.getUserById(userId));
+    }
+
+    @GetMapping
+    public ResponseEntity<Object> getAllUsers(){
+        logger.info("HIT ---> Get all users");
+        return sendResponse(userService.getAllUsers());
+    }
 
 
 

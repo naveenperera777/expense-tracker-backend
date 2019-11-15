@@ -8,8 +8,10 @@ import com.iit.expensetracker.Service.UserService;
 import com.iit.expensetracker.enums.ResponseMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -35,5 +37,21 @@ public class UserServiceImpl implements UserService {
         userDAO.saveUser(userModel);
 
         return new Response(ResponseMessage.SUCCESS, userModel);
+    }
+
+    @Override
+    public Object getUserById(String userId) {
+        UserModel user =  userDAO.getUserById(userId);
+        if (user == null)
+            return new Response(ResponseMessage.NO_RECORD , HttpStatus.NOT_FOUND);
+       return new Response(ResponseMessage.SUCCESS , user);
+    }
+
+    @Override
+    public Object getAllUsers() {
+        List userList = userDAO.getAllUsers();
+        if (userList.isEmpty())
+            return new Response(ResponseMessage.NO_RECORD, "User List is Empty");
+        return  new Response(ResponseMessage.SUCCESS, userList);
     }
 }
