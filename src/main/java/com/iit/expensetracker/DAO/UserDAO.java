@@ -18,6 +18,6 @@ public class UserDAO {
 
     public void saveUser(UserModel userModel){
         String sql = "INSERT INTO user(userId , firstName , lastName , email , city) VALUES (?,?,?,?,?)";
-        jdbcTemplate.update(sql , userModel.getUserId() , userModel.getFirstName(), userModel.getLastName(), userModel.getEmail(), userModel.getCity());
+        jdbcTemplate.update(sql , userModel.getUserId(), userModel.getFirstName(), userModel.getLastName(), userModel.getEmail(), userModel.getCity());
     }
 }
