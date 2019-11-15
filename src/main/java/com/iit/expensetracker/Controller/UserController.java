@@ -38,6 +38,18 @@ public class UserController extends ResponseController {
         return sendResponse(userService.getAllUsers());
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> editUserById(@RequestBody UserDto userDto , @PathVariable("id") String userId){
+        logger.info("HIT --> Edit user {} userId {}", userDto,userId);
+        return  sendResponse(userService.editUserById(userId, userDto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteUserById(@PathVariable("id") String userId){
+        logger.info("HIT ---> delete user {}", userId);
+        return sendResponse(userService.deleteByUserId(userId));
+    }
+
 
 
 }

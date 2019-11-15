@@ -38,4 +38,14 @@ public class UserDAO {
         String sql = "SELECT * from user";
         return jdbcTemplate.query(sql, new UserDataMapper());
     }
+
+    public void editUserById(UserModel userModel){
+        String sql = "UPDATE user SET userId=?, firstName=?, lastName=?, email=?, city=? WHERE userId=?";
+        jdbcTemplate.update(sql,userModel.getUserId(),userModel.getFirstName(),userModel.getLastName(),userModel.getEmail(),userModel.getCity(), userModel.getUserId());
+    }
+
+    public void deleteByUserId(String userId){
+        String sql = "DELETE FROM user WHERE userId=?";
+        jdbcTemplate.update(sql,userId);
+    }
 }

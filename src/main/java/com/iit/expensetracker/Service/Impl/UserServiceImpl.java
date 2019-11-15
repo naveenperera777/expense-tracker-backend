@@ -54,4 +54,29 @@ public class UserServiceImpl implements UserService {
             return new Response(ResponseMessage.NO_RECORD, "User List is Empty");
         return  new Response(ResponseMessage.SUCCESS, userList);
     }
+
+    @Override
+    public Object editUserById(String userId , UserDto userDto) {
+        UserModel userModel = userDAO.getUserById(userId);
+        if (userModel == null)
+            return new Response(ResponseMessage.NO_RECORD, "User does not exist");
+        UserModel editUserModel = new UserModel();
+        editUserModel.setUserId(userId);
+        editUserModel.setFirstName(userDto.getFirstName());
+        editUserModel.setLastName(userDto.getLastName());
+        editUserModel.setEmail(userDto.getEmail());
+        editUserModel.setCity(userDto.getCity());
+        logger.info("Edit user model {}",editUserModel);
+        userDAO.editUserById(editUserModel);
+        return new Response(ResponseMessage.SUCCESS, editUserModel);
+    }
+
+    @Override
+    public Object deleteByUserId(String userId) {
+        UserModel userModel = userDAO.getUserById(userId);
+        if (userModel == null)
+            return new Response(ResponseMessage.NO_RECORD, "User does not exist");
+        userDAO.deleteByUserId(userId);
+        return new Response(ResponseMessage.SUCCESS, HttpStatus.OK);
+    }
 }
