@@ -1,7 +1,9 @@
 package com.iit.expensetracker.DAO;
 
 import com.iit.expensetracker.DataMapper.TransactionDataMapper;
+import com.iit.expensetracker.Dto.TransactionResponseDto;
 import com.iit.expensetracker.Model.TransactionModel;
+import com.iit.expensetracker.Model.TransactionResposeDataMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -24,10 +26,12 @@ public class TransactionDAO {
         jdbcTemplate.update(sql, transactionModel.getTransactionId(), transactionModel.getUserId(), transactionModel.getCategoryId(), transactionModel.getAmount(), transactionModel.getRemarks(), transactionModel.getTimestamp());
     }
 
-    public List<TransactionModel> getAllTransactionsByUserId(String userId){
-        String sql = "SELECT * FROM transaction WHERE userId=?";
-        logger.info("Transaction DAO get all transactions by user id {}", userId);
-        return jdbcTemplate.query(sql, new String[]{userId}, new TransactionDataMapper());
+    public List<TransactionResponseDto> getAllTransactionsByUserId(String userTr){
+//        String sql = "SELECT * FROM transaction WHERE userId=?";
+        logger.info("Transaction DAO get all transactions by user id {}", userTr);
+        String sql = "SELECT * FROM transaction LEFT JOIN category ON transaction.categoryId = category.categoryId WHERE transaction.userId=?";
+        logger.info("Transaction DAO get all transactions by user id {}", userTr);
+        return jdbcTemplate.query(sql, new String[]{userTr}, new TransactionResposeDataMapper());
     }
 
 }

@@ -1,24 +1,16 @@
-package com.iit.expensetracker.Model;
+package com.iit.expensetracker.Dto;
 
 import java.util.Date;
 
-public class TransactionModel {
+public class TransactionResponseDto {
     private String transactionId;
     private String categoryId;
     private String userId;
     private double amount;
     private Date timestamp;
     private String remarks;
-
-
-    public Date getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
-    }
-
+    private String categoryName;
+    private String categoryType;
 
     public String getTransactionId() {
         return transactionId;
@@ -36,12 +28,28 @@ public class TransactionModel {
         this.categoryId = categoryId;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     public double getAmount() {
         return amount;
     }
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
     }
 
     public String getRemarks() {
@@ -52,23 +60,22 @@ public class TransactionModel {
         this.remarks = remarks;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
-    @Override
-    public String toString() {
-        return "TransactionModel{" +
-                "transactionId='" + transactionId + '\'' +
-                ", categoryId='" + categoryId + '\'' +
-                ", userId='" + userId + '\'' +
-                ", amount=" + amount +
-                ", timestamp=" + timestamp +
-                ", remarks='" + remarks + '\'' +
-                '}';
+    public String getCategoryType() {
+        return categoryType;
     }
+
+    public void setCategoryType(String categoryType) {
+        this.categoryType = categoryType;
+    }
+
+
+
 }
