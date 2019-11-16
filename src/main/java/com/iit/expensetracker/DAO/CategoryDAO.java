@@ -35,4 +35,12 @@ public class CategoryDAO {
         String sql = "SELECT * FROM category";
         return jdbcTemplate.query(sql, new CategoryDataMapper());
     }
+    public void deleteCategoryById(String categoryId){
+        String sql = "DELETE FROM category WHERE categoryId=?";
+        jdbcTemplate.update(sql,categoryId);
+    }
+    public void editCategory(CategoryModel categoryModel){
+        String sql = "UPDATE category SET categoryId=?,userId=?,category=?,type=?,exp_limit=? WHERE categoryId=?";
+        jdbcTemplate.update(sql, categoryModel.getCategoryId(), categoryModel.getUserId(), categoryModel.getCategoryName(), categoryModel.getType().toString(), categoryModel.getLimit(), categoryModel.getCategoryId());
+    }
 }

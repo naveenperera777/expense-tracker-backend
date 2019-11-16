@@ -37,5 +37,17 @@ public class CategoryController extends ResponseController {
         return sendResponse(categoryService.getAllCategories());
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> editCategoryById(@RequestBody CategoryDto categoryDto, @PathVariable("id") String categoryId){
+        logger.info("HIT-->Category controller edit category {} {}" , categoryId, categoryDto);
+        return sendResponse(categoryService.editCategoryById(categoryDto,categoryId));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteCategoryById(@PathVariable("id")String categoryId){
+        logger.info("HIT---> Category controller delete category {}",categoryId);
+        return sendResponse(categoryService.deleteCategoryById(categoryId));
+    }
+
 
 }

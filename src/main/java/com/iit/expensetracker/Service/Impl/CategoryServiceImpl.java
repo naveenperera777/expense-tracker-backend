@@ -54,4 +54,29 @@ public class CategoryServiceImpl implements CategoryService {
             return new Response(ResponseMessage.NO_RECORD, "No categories found!");
         return new Response(ResponseMessage.SUCCESS,categoryList);
     }
+
+    @Override
+    public Object deleteCategoryById(String categoryId) {
+        CategoryModel categoryModel = categoryDAO.getCategoryById(categoryId);
+        if (categoryModel == null)
+            return new Response(ResponseMessage.NO_RECORD, HttpStatus.NOT_FOUND);
+        categoryDAO.deleteCategoryById(categoryId);
+        return new Response(ResponseMessage.SUCCESS, HttpStatus.OK);
+    }
+
+    @Override
+    public Object editCategoryById(CategoryDto categoryDto, String categoryId) {
+        CategoryModel categoryModel = categoryDAO.getCategoryById(categoryId);
+        if (categoryModel == null)
+            return new Response(ResponseMessage.NO_RECORD, HttpStatus.NOT_FOUND);
+        CategoryModel editCategoryModel = new CategoryModel();
+        editCategoryModel.setCategoryId(categoryId);
+        editCategoryModel.setCategoryName(categoryDto.getCategoryName());
+        editCategoryModel.setUserId(categoryDto.getUserId());
+        editCategoryModel.setType(categoryDto.getType());
+        editCategoryModel.setLimit(categoryDto.getLimit());
+        categoryDAO.editCategory(editCategoryModel);
+
+        return new Response(ResponseMessage.SUCCESS , editCategoryModel);
+    }
 }
