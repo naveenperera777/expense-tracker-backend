@@ -1,8 +1,10 @@
 package com.iit.expensetracker.Service.Impl;
 
 import com.iit.expensetracker.DAO.CategoryDAO;
+import com.iit.expensetracker.DAO.UserDAO;
 import com.iit.expensetracker.Dto.CategoryDto;
 import com.iit.expensetracker.Model.CategoryModel;
+import com.iit.expensetracker.Model.UserModel;
 import com.iit.expensetracker.Response.Response;
 import com.iit.expensetracker.Service.CategoryService;
 import com.iit.expensetracker.enums.ResponseMessage;
@@ -17,10 +19,12 @@ import java.util.UUID;
 @Service
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryDAO categoryDAO;
+    private final UserDAO userDAO;
     private static final Logger logger = LoggerFactory.getLogger(CategoryServiceImpl.class);
 
-    public CategoryServiceImpl(CategoryDAO categoryDAO) {
+    public CategoryServiceImpl(CategoryDAO categoryDAO, UserDAO userDAO) {
         this.categoryDAO = categoryDAO;
+        this.userDAO = userDAO;
     }
 
     @Override
@@ -45,6 +49,17 @@ public class CategoryServiceImpl implements CategoryService {
             return new Response(ResponseMessage.NO_RECORD, HttpStatus.NOT_FOUND);
         }
         return new Response(ResponseMessage.SUCCESS, categoryModel);
+    }
+
+    @Override
+    public Object getAllCategoriesByUserId(String userId) {
+        UserModel userModel = userDAO.getUserById(userId);
+        if (userModel == null)
+            return new Response(ResponseMessage.NO_RECORD, "User Not Found!");
+        List<CategoryModel> categoryList = categoryDAO.getAllCategoriesByUserId(userId);
+        if (categoryList.isEmpty())
+            return new Response(ResponseMessage.NO_RECORD, "No Categories found for this user!");
+        return new Response(ResponseMessage.SUCCESS, categoryList);
     }
 
     @Override

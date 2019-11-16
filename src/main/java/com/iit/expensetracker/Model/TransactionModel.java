@@ -5,6 +5,7 @@ import java.util.Date;
 public class TransactionModel {
     private String transactionId;
     private String categoryId;
+    private String userId;
     private double amount;
     private Date timestamp;
 
@@ -50,11 +51,20 @@ public class TransactionModel {
         this.remarks = remarks;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         return "TransactionModel{" +
                 "transactionId='" + transactionId + '\'' +
                 ", categoryId='" + categoryId + '\'' +
+                ", userId='" + userId + '\'' +
                 ", amount=" + amount +
                 ", timestamp=" + timestamp +
                 ", remarks='" + remarks + '\'' +

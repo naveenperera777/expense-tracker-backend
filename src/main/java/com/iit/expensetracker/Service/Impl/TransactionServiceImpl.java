@@ -20,7 +20,7 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public Object saveTransaction(TransactionDto transactionDto) {
+    public Object saveTransaction(String userId, TransactionDto transactionDto) {
         TransactionModel transactionModel = new TransactionModel();
         UUID uuid = UUID.randomUUID();
         transactionModel.setTransactionId(uuid.toString());

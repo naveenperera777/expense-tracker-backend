@@ -25,6 +25,11 @@ public class CategoryController extends ResponseController {
         return sendResponse(categoryService.saveCategory(categoryDto));
     }
 
+    @GetMapping("/user")
+    public ResponseEntity<Object> getAllCategoriesByUserId(@RequestHeader("user") String user){
+        return sendResponse(categoryService.getAllCategoriesByUserId(user));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Object> getCategoryById(@PathVariable("id") String categoryId){
         logger.info("Retrieve category id {}", categoryId);

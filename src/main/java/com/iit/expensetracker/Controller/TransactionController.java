@@ -6,10 +6,7 @@ import com.iit.expensetracker.Service.TransactionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("transaction")
 @RestController
@@ -23,9 +20,12 @@ public class TransactionController extends ResponseController {
     }
 
     @PostMapping
-    public ResponseEntity saveTransaction(@RequestBody TransactionDto transactionDto){
-        return sendResponse(transactionService.saveTransaction(transactionDto));
+    public ResponseEntity saveTransaction(@RequestBody TransactionDto transactionDto, @RequestHeader("user") String userId){
+        return sendResponse(transactionService.saveTransaction(userId, transactionDto));
     }
+
+//    @GetMapping
+//    public ResponseEntity
 
 
 

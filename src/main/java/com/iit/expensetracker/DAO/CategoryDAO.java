@@ -31,6 +31,12 @@ public class CategoryDAO {
             return null;
         }
     }
+
+    public List<CategoryModel> getAllCategoriesByUserId(String userId){
+        String sql = "SELECT * FROM category WHERE userId=?";
+        logger.info("Category DAO get all categories for a user {}", userId);
+        return jdbcTemplate.query(sql, new String[]{userId}, new CategoryDataMapper());
+    }
     public List<CategoryModel> getAllCategories(){
         String sql = "SELECT * FROM category";
         return jdbcTemplate.query(sql, new CategoryDataMapper());
