@@ -1,10 +1,14 @@
 package com.iit.expensetracker.DAO;
 
+import com.iit.expensetracker.DataMapper.CategoryDataMapper;
 import com.iit.expensetracker.Model.CategoryModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class CategoryDAO {
@@ -18,5 +22,17 @@ public class CategoryDAO {
         String sql = "INSERT INTO category(categoryId, userId, category, type, exp_limit) VALUES(?,?,?,?,?)";
         logger.info("category DAO {} " ,categoryModel.toString());
         jdbcTemplate.update(sql, categoryModel.getCategoryId(), categoryModel.getUserId(), categoryModel.getCategoryName(), categoryModel.getType().toString(), categoryModel.getLimit());
+    }
+    public CategoryModel getCategoryById(String categoryId){
+        String sql = "SELECT * FROM category WHERE categoryId=?";
+        try {
+            return jdbcTemplate.queryForObject(sql, new String[]{categoryId}, new CategoryDataMapper());
+        } catch (EmptyResultDataAccessException e){
+            return null;
+        }
+    }
+    public List<CategoryModel> getAllCategories(){
+        String sql = "SELECT * FROM category";
+        return jdbcTemplate.query(sql, new CategoryDataMapper());
     }
 }

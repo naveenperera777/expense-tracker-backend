@@ -8,8 +8,10 @@ import com.iit.expensetracker.Service.CategoryService;
 import com.iit.expensetracker.enums.ResponseMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -34,5 +36,22 @@ public class CategoryServiceImpl implements CategoryService {
         categoryDAO.saveCategory(categoryModel);
         return new Response(ResponseMessage.SUCCESS, categoryModel);
 
+    }
+
+    @Override
+    public Object getCategoryById(String categoryId) {
+        CategoryModel categoryModel = categoryDAO.getCategoryById(categoryId);
+        if (categoryModel == null){
+            return new Response(ResponseMessage.NO_RECORD, HttpStatus.NOT_FOUND);
+        }
+        return new Response(ResponseMessage.SUCCESS, categoryModel);
+    }
+
+    @Override
+    public Object getAllCategories() {
+        List<CategoryModel> categoryList = categoryDAO.getAllCategories();
+        if (categoryList.isEmpty())
+            return new Response(ResponseMessage.NO_RECORD, "No categories found!");
+        return new Response(ResponseMessage.SUCCESS,categoryList);
     }
 }
