@@ -59,12 +59,23 @@ public class TransactionServiceImpl implements TransactionService {
         if (transactionList.isEmpty())
             return new Response(ResponseMessage.NO_RECORD, "No Transactions found for this user!");
 
-//        CategoryModel categoryModel = categoryDAO.getCategoryById();
-//        for (int i=0; i<transactionList.size(); i++){
-//            TransactionResponseDto responseDto = new TransactionResponseDto();
-////            responseDto
-//        }
-
         return new Response(ResponseMessage.SUCCESS, transactionList);
+    }
+
+    @Override
+    public Object editTransactionById(String id, TransactionDto transactionDto, String userId) {
+       TransactionModel transactionModel = transactionDAO.getTransactionById(id);
+       if (transactionModel == null)
+           return new Response(ResponseMessage.NO_RECORD, "No such Transaction found");
+       TransactionModel editTransaction = new TransactionModel();
+       editTransaction.setTransactionId(id);
+       editTransaction.setCategoryId(transactionDto.getCategoryId());
+       editTransaction.setUserId(userId);
+       editTransaction.setAmount(transactionDto.getAmount());
+       editTransaction.setRemarks(transactionDto.getRemarks());
+        Date date = new Date();
+       editTransaction.setTimestamp(date);
+       transactionDAO.editTransactionById(editTransaction);
+       return new Response(ResponseMessage.SUCCESS, transactionDto);
     }
 }

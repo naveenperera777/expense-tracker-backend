@@ -29,5 +29,10 @@ public class TransactionController extends ResponseController {
         return sendResponse(transactionService.getAllTransactionsByUserId(userId));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity editTransactionById(@PathVariable("id") String id, @RequestBody TransactionDto transactionDto, @RequestHeader("user") String user){
+        return sendResponse(transactionService.editTransactionById(id, transactionDto, user));
+    }
+
 
 }
