@@ -24,9 +24,10 @@ public class TransactionController extends ResponseController {
         return sendResponse(transactionService.saveTransaction(userId, transactionDto));
     }
 
-//    @GetMapping
-//    public ResponseEntity
-
+    @GetMapping("/user")
+    public ResponseEntity getAllTransactionsByUserId(@RequestHeader("user") String userId ){
+        return sendResponse(transactionService.getAllTransactionsByUserId(userId));
+    }
 
 
 }
