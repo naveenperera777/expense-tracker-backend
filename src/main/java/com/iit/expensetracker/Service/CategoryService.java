@@ -1,12 +1,12 @@
 package com.iit.expensetracker.Service;
 
-import com.iit.expensetracker.Dto.CategoryDto;
+import com.iit.expensetracker.Dto.CategoryDTObject;
 
 public interface CategoryService {
-    Object saveCategory(CategoryDto categoryDto);
+    Object saveCategory(CategoryDTObject categoryDTObject);
     Object getCategoryById(String categoryId);
     Object getAllCategoriesByUserId(String userId);
     Object getAllCategories();
     Object deleteCategoryById(String catrgoryId);
-    Object editCategoryById(CategoryDto categoryDto, String categoryId);
+    Object editCategoryById(CategoryDTObject categoryDTObject, String categoryId);
 }

@@ -1,12 +1,12 @@
 package com.iit.expensetracker.Model;
 
-public class UserModel {
+public class User {
 
     private String userId;
     private String firstName;
     private String lastName;
+    private String telephoneNumber;
     private String email;
-    private String city;
 
     public String getUserId() {
         return userId;
@@ -40,22 +40,22 @@ public class UserModel {
         this.email = email;
     }
 
-    public String getCity() {
-        return city;
+    public String getTelephoneNumber() {
+        return telephoneNumber;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setTelephoneNumber(String telephoneNumber) {
+        this.telephoneNumber = telephoneNumber;
     }
 
     @Override
     public String toString() {
-        return "UserModel{" +
+        return "UsersModel{" +
                 "userId='" + userId + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", city='" + city + '\'' +
+                ", city='" + telephoneNumber + '\'' +
                 '}';
     }
 }

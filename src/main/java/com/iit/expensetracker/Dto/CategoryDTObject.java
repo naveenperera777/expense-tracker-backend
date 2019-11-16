@@ -2,7 +2,7 @@ package com.iit.expensetracker.Dto;
 
 import com.iit.expensetracker.enums.CategoryEnum;
 
-public class CategoryDto {
+public class CategoryDTObject {
     private String userId;
     private String categoryId;
     private String categoryName;

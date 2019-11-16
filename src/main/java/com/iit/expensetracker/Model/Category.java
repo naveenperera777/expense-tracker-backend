@@ -2,7 +2,7 @@ package com.iit.expensetracker.Model;
 
 import com.iit.expensetracker.enums.CategoryEnum;
 
-public class CategoryModel {
+public class Category {
     private String categoryId;
     private String userId;
     private String categoryName;

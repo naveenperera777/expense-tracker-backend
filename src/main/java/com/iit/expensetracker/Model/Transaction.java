@@ -2,7 +2,7 @@ package com.iit.expensetracker.Model;
 
 import java.util.Date;
 
-public class TransactionModel {
+public class Transaction {
     private String transactionId;
     private String categoryId;
     private String userId;

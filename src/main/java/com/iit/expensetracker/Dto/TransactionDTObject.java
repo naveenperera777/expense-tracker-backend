@@ -1,6 +1,6 @@
 package com.iit.expensetracker.Dto;
 
-public class TransactionDto {
+public class TransactionDTObject {
     private String categoryId;
     private double amount;
     private String remarks;

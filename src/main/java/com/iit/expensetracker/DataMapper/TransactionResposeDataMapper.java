@@ -1,7 +1,6 @@
-package com.iit.expensetracker.Model;
+package com.iit.expensetracker.DataMapper;
 
-import com.iit.expensetracker.Dto.TransactionResponseDto;
-import com.iit.expensetracker.enums.CategoryEnum;
+import com.iit.expensetracker.Dto.TransactionResponseDTObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.RowMapper;
@@ -9,12 +8,12 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class TransactionResposeDataMapper implements RowMapper<TransactionResponseDto> {
+public class TransactionResposeDataMapper implements RowMapper<TransactionResponseDTObject> {
     private static final Logger logger = LoggerFactory.getLogger(TransactionResposeDataMapper.class);
 
     @Override
-    public TransactionResponseDto mapRow(ResultSet resultSet, int i) throws SQLException {
-        TransactionResponseDto transactionModel = new TransactionResponseDto();
+    public TransactionResponseDTObject mapRow(ResultSet resultSet, int i) throws SQLException {
+        TransactionResponseDTObject transactionModel = new TransactionResponseDTObject();
         transactionModel.setUserId(resultSet.getString("userId"));
         transactionModel.setCategoryId(resultSet.getString("categoryId"));
         transactionModel.setTransactionId(resultSet.getString("transactionId"));

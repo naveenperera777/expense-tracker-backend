@@ -1,10 +1,10 @@
 package com.iit.expensetracker.Dto;
 
-public class UserDto {
+public class UserDTObject {
     private String firstName;
     private String lastName;
     private String email;
-    private String city;
+    private String telephoneNumber;
 
 
     public String getFirstName() {
@@ -31,12 +31,12 @@ public class UserDto {
         this.email = email;
     }
 
-    public String getCity() {
-        return city;
+    public String getTelephoneNumber() {
+        return telephoneNumber;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setTelephoneNumber(String telephoneNumber) {
+        this.telephoneNumber = telephoneNumber;
     }
 
 }

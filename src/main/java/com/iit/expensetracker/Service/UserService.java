@@ -1,11 +1,11 @@
 package com.iit.expensetracker.Service;
 
-import com.iit.expensetracker.Dto.UserDto;
+import com.iit.expensetracker.Dto.UserDTObject;
 
 public interface UserService {
-    Object saveUser(UserDto userDto);
-    Object getUserById(String userId);
+    Object saveNewUser(UserDTObject userDTObject);
+    Object userGetById(String userId);
     Object getAllUsers();
-    Object editUserById(String userId, UserDto userDto);
-    Object deleteByUserId(String userId);
+    Object userEditByUserId(String userId, UserDTObject userDTObject);
+    Object userDeleteById(String userId);
 }
