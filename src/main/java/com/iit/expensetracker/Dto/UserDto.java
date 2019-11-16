@@ -39,6 +39,4 @@ public class UserDto {
         this.city = city;
     }
 
-
-
 }
