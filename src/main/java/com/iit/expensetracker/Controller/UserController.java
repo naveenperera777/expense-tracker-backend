@@ -4,6 +4,7 @@ package com.iit.expensetracker.Controller;
 import com.iit.expensetracker.Dto.UserDto;
 import com.iit.expensetracker.Response.ResponseController;
 import com.iit.expensetracker.Service.UserService;
+import org.apache.catalina.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
