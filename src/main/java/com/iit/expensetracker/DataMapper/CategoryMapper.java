@@ -17,12 +17,11 @@ public class CategoryMapper implements RowMapper<Category> {
     @Override
     public Category mapRow(ResultSet resultSet, int i) throws SQLException {
         Category category = new Category();
-        category.setCategoryId(resultSet.getString("categoryId"));
-        category.setUserId(resultSet.getString("userId"));
-        category.setCategoryName(resultSet.getString("category"));
-//        CategoryEnum categoryEnum = CategoryEnum.valueOf(resultSet.getString("type"));
-        category.setType(CategoryEnum.valueOf(resultSet.getString("type")));
-        category.setLimit(resultSet.getDouble("exp_limit"));
+        category.setCategory_id(resultSet.getString("category_id"));
+        category.setUser_id(resultSet.getString("user_id"));
+        category.setCategory_name(resultSet.getString("category_name"));
+        category.setCategory_type(CategoryEnum.valueOf(resultSet.getString("category_type")));
+        category.setCategory_limit(resultSet.getDouble("category_limit"));
         return category;
     }
 }

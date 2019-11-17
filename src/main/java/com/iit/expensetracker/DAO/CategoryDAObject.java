@@ -18,35 +18,36 @@ public class CategoryDAObject {
     public CategoryDAObject(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-    public void saveCategory(Category category){
-        String sql = "INSERT INTO category(categoryId, userId, category, type, exp_limit) VALUES(?,?,?,?,?)";
-        logger.info("category DAO {} " , category.toString());
-        jdbcTemplate.update(sql, category.getCategoryId(), category.getUserId(), category.getCategoryName(), category.getType().toString(), category.getLimit());
+
+     public void saveCategory(Category category){
+        String sql = "INSERT INTO category(category_id, user_id, category_name, category_type, category_limit) VALUES(?,?,?,?,?)";
+        jdbcTemplate.update(sql, category.getCategory_id(), category.getUser_id(), category.getCategory_name(), category.getCategory_type().toString(), category.getCategory_limit());
     }
-    public Category getCategoryById(String categoryId){
-        String sql = "SELECT * FROM category WHERE categoryId=?";
+
+    public List<Category> getAllCategoriesForAUserByUserId(String user_id){
+        String sql = "SELECT * FROM category WHERE user_id=?";
+        return jdbcTemplate.query(sql, new String[]{user_id}, new CategoryMapper());
+    }
+
+    public Category retrieveCategoryByCategoryId(String category_id){
+        String sql = "SELECT * FROM category WHERE category_id=?";
         try {
-            return jdbcTemplate.queryForObject(sql, new String[]{categoryId}, new CategoryMapper());
+            return jdbcTemplate.queryForObject(sql, new String[]{category_id}, new CategoryMapper());
         } catch (EmptyResultDataAccessException e){
             return null;
         }
     }
 
-    public List<Category> getAllCategoriesByUserId(String userId){
-        String sql = "SELECT * FROM category WHERE userId=?";
-        logger.info("Category DAO get all categories for a user {}", userId);
-        return jdbcTemplate.query(sql, new String[]{userId}, new CategoryMapper());
-    }
     public List<Category> getAllCategories(){
         String sql = "SELECT * FROM category";
         return jdbcTemplate.query(sql, new CategoryMapper());
     }
-    public void deleteCategoryById(String categoryId){
-        String sql = "DELETE FROM category WHERE categoryId=?";
-        jdbcTemplate.update(sql,categoryId);
+    public void categoryDeleteById(String category_id){
+        String sql = "DELETE FROM category WHERE category_id=?";
+        jdbcTemplate.update(sql,category_id);
     }
-    public void editCategory(Category category){
-        String sql = "UPDATE category SET categoryId=?,userId=?,category=?,type=?,exp_limit=? WHERE categoryId=?";
-        jdbcTemplate.update(sql, category.getCategoryId(), category.getUserId(), category.getCategoryName(), category.getType().toString(), category.getLimit(), category.getCategoryId());
+    public void categoryEditById(Category category){
+        String sql = "UPDATE category SET category_id=?,user_id=?,category_name=?,category_type=?,category_limit=? WHERE category_id=?";
+        jdbcTemplate.update(sql, category.getCategory_id(), category.getUser_id(), category.getCategory_name(), category.getCategory_type().toString(), category.getCategory_limit(), category.getCategory_id());
     }
 }

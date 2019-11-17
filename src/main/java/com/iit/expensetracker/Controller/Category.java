@@ -19,38 +19,34 @@ public class Category extends ResponseController {
         this.categoryService = categoryService;
     }
 
-    @PostMapping
+    @PostMapping("/save")
     public ResponseEntity<Object> saveCategory(@RequestBody CategoryDTObject categoryDTObject){
-        return sendResponse(categoryService.saveCategory(categoryDTObject));
+        return sendResponse(categoryService.saveNewCategory(categoryDTObject));
+    }
+
+    @GetMapping("/{category_id}")
+    public ResponseEntity<Object> retrieveCategoryByCategoryId(@PathVariable("category_id") String categoryId){
+        return sendResponse(categoryService.retrieveCategoryByCategoryId(categoryId));
     }
 
     @GetMapping("/user")
-    public ResponseEntity<Object> getAllCategoriesByUserId(@RequestHeader("user") String user){
-        return sendResponse(categoryService.getAllCategoriesByUserId(user));
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Object> getCategoryById(@PathVariable("id") String categoryId){
-        logger.info("Retrieve category id {}", categoryId);
-        return sendResponse(categoryService.getCategoryById(categoryId));
+    public ResponseEntity<Object> getAllCategoriesForAUserByUserId(@RequestHeader("user_id") String user_id){
+        return sendResponse(categoryService.getAllCategoriesForAUserByUserId(user_id));
     }
 
     @GetMapping
     public ResponseEntity<Object> getAllCategories(){
-        logger.info("Retrieve all categories");
         return sendResponse(categoryService.getAllCategories());
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Object> editCategoryById(@RequestBody CategoryDTObject categoryDTObject, @PathVariable("id") String categoryId){
-        logger.info("HIT-->Category controller edit category {} {}" , categoryId, categoryDTObject);
-        return sendResponse(categoryService.editCategoryById(categoryDTObject,categoryId));
+    @DeleteMapping("/{category_id}")
+    public ResponseEntity<Object> categoryDeleteById(@PathVariable("category_id")String category_id){
+        return sendResponse(categoryService.categoryDeleteById(category_id));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteCategoryById(@PathVariable("id")String categoryId){
-        logger.info("HIT---> Category controller delete category {}",categoryId);
-        return sendResponse(categoryService.deleteCategoryById(categoryId));
+    @PutMapping("/{category_id}")
+    public ResponseEntity<Object> categoryEditById(@RequestBody CategoryDTObject categoryDTObject, @PathVariable("category_id") String category_id){
+        return sendResponse(categoryService.categoryEditById(categoryDTObject,category_id));
     }
 
 

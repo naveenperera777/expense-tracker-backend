@@ -28,39 +28,35 @@ public class CategoryServiceImplementation implements CategoryService {
     }
 
     @Override
-    public Object saveCategory(CategoryDTObject categoryDTObject) {
-        Category category = new Category();
-        category.setUserId(categoryDTObject.getUserId());
-        UUID uuid = UUID.randomUUID();
-        category.setCategoryId(uuid.toString());
-        category.setCategoryName(categoryDTObject.getCategoryName());
-        category.setType(categoryDTObject.getType());
-        category.setLimit(categoryDTObject.getLimit());
-        logger.info("saving category {}", category.toString());
+    public Object saveNewCategory(CategoryDTObject categoryDTObject) {
+        Category category = copyDtoToModel(categoryDTObject);
         categoryDAObject.saveCategory(category);
         return new Response(ResponseMessage.SUCCESS, category);
 
     }
 
     @Override
-    public Object getCategoryById(String categoryId) {
-        Category category = categoryDAObject.getCategoryById(categoryId);
+    public Object getAllCategoriesForAUserByUserId(String userId) {
+        logger.info("user {}", userId);
+        User user = userDAObject.getUserById(userId);
+        if (user == null)
+            return new Response(ResponseMessage.NO_RECORD, "User Not Found in Database");
+        List<Category> UserCategoryList = categoryDAObject.getAllCategoriesForAUserByUserId(userId);
+        if (UserCategoryList.isEmpty())
+            return new Response(ResponseMessage.NO_RECORD, "No Categories found in Database for this user");
+        return new Response(ResponseMessage.SUCCESS, UserCategoryList);
+    }
+
+    @Override
+    public Object retrieveCategoryByCategoryId(String categoryId) {
+        Category category = categoryDAObject.retrieveCategoryByCategoryId(categoryId);
         if (category == null){
             return new Response(ResponseMessage.NO_RECORD, HttpStatus.NOT_FOUND);
         }
         return new Response(ResponseMessage.SUCCESS, category);
     }
 
-    @Override
-    public Object getAllCategoriesByUserId(String userId) {
-        User user = userDAObject.getUserById(userId);
-        if (user == null)
-            return new Response(ResponseMessage.NO_RECORD, "User Not Found!");
-        List<Category> categoryList = categoryDAObject.getAllCategoriesByUserId(userId);
-        if (categoryList.isEmpty())
-            return new Response(ResponseMessage.NO_RECORD, "No Categories found for this user!");
-        return new Response(ResponseMessage.SUCCESS, categoryList);
-    }
+
 
     @Override
     public Object getAllCategories() {
@@ -71,27 +67,38 @@ public class CategoryServiceImplementation implements CategoryService {
     }
 
     @Override
-    public Object deleteCategoryById(String categoryId) {
-        Category category = categoryDAObject.getCategoryById(categoryId);
+    public Object categoryDeleteById(String category_id) {
+        Category category = categoryDAObject.retrieveCategoryByCategoryId(category_id);
         if (category == null)
             return new Response(ResponseMessage.NO_RECORD, HttpStatus.NOT_FOUND);
-        categoryDAObject.deleteCategoryById(categoryId);
+        categoryDAObject.categoryDeleteById(category_id);
         return new Response(ResponseMessage.SUCCESS, HttpStatus.OK);
     }
 
     @Override
-    public Object editCategoryById(CategoryDTObject categoryDTObject, String categoryId) {
-        Category category = categoryDAObject.getCategoryById(categoryId);
+    public Object categoryEditById(CategoryDTObject categoryDTObject, String category_id) {
+        Category category = categoryDAObject.retrieveCategoryByCategoryId(category_id);
         if (category == null)
             return new Response(ResponseMessage.NO_RECORD, HttpStatus.NOT_FOUND);
         Category editCategory = new Category();
-        editCategory.setCategoryId(categoryId);
-        editCategory.setCategoryName(categoryDTObject.getCategoryName());
-        editCategory.setUserId(categoryDTObject.getUserId());
-        editCategory.setType(categoryDTObject.getType());
-        editCategory.setLimit(categoryDTObject.getLimit());
-        categoryDAObject.editCategory(editCategory);
+        editCategory.setCategory_id(category_id);
+        editCategory.setCategory_name(categoryDTObject.getCategory_name());
+        editCategory.setUser_id(categoryDTObject.getUser_id());
+        editCategory.setCategory_type(categoryDTObject.getCategory_type());
+        editCategory.setCategory_limit(categoryDTObject.getCategory_limit());
+        categoryDAObject.categoryEditById(editCategory);
 
         return new Response(ResponseMessage.SUCCESS , editCategory);
+    }
+
+    public Category copyDtoToModel(CategoryDTObject categoryDTObject){
+        Category category = new Category();
+        final String uuid = UUID.randomUUID().toString().replace("-", "");
+        category.setUser_id(categoryDTObject.getUser_id());
+        category.setCategory_id(uuid);
+        category.setCategory_name(categoryDTObject.getCategory_name());
+        category.setCategory_type(categoryDTObject.getCategory_type());
+        category.setCategory_limit(categoryDTObject.getCategory_limit());
+        return category;
     }
 }

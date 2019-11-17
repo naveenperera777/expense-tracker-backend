@@ -3,10 +3,10 @@ package com.iit.expensetracker.Service;
 import com.iit.expensetracker.Dto.CategoryDTObject;
 
 public interface CategoryService {
-    Object saveCategory(CategoryDTObject categoryDTObject);
-    Object getCategoryById(String categoryId);
-    Object getAllCategoriesByUserId(String userId);
+    Object saveNewCategory(CategoryDTObject categoryDTObject);
+    Object getAllCategoriesForAUserByUserId(String userId);
+    Object retrieveCategoryByCategoryId(String categoryId);
     Object getAllCategories();
-    Object deleteCategoryById(String catrgoryId);
-    Object editCategoryById(CategoryDTObject categoryDTObject, String categoryId);
+    Object categoryDeleteById(String category_id);
+    Object categoryEditById(CategoryDTObject categoryDTObject, String category_id);
 }
