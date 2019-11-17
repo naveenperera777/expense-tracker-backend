@@ -29,5 +29,20 @@ public class Transaction extends ResponseController {
         return sendResponse(transactionService.getAllTransactionsByUserId(userId));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity editTransactionById(@PathVariable("id") String id, @RequestBody TransactionDto transactionDto, @RequestHeader("user") String user){
+        return sendResponse(transactionService.editTransactionById(id, transactionDto, user));
+    }
+
+    @GetMapping("/month/{month}")
+    public ResponseEntity getTransactionsByMonth(@PathVariable("month") String month, @RequestHeader("user") String user){
+        return sendResponse(transactionService.getTransactionsByMonth(month, user));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteTransactionById(@PathVariable("id") String transactionId){
+        return sendResponse(transactionService.deleteTransactionById(transactionId));
+    }
+
 
 }
