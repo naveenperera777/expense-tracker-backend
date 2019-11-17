@@ -3,72 +3,70 @@ package com.iit.expensetracker.Model;
 import java.util.Date;
 
 public class Transaction {
-    private String transactionId;
-    private String categoryId;
-    private String userId;
-    private double amount;
-    private Date timestamp;
-    private String remarks;
+    private String transaction_id;
+    private String category_id;
+    private String user_id;
+    private double transaction_amount;
+    private Date transaction_time;
+    private String transaction_notes;
 
-
-    public Date getTimestamp() {
-        return timestamp;
+    public String getTransaction_id() {
+        return transaction_id;
     }
 
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
+    public void setTransaction_id(String transaction_id) {
+        this.transaction_id = transaction_id;
     }
 
-
-    public String getTransactionId() {
-        return transactionId;
+    public String getCategory_id() {
+        return category_id;
     }
 
-    public void setTransactionId(String transactionId) {
-        this.transactionId = transactionId;
+    public void setCategory_id(String category_id) {
+        this.category_id = category_id;
     }
 
-    public String getCategoryId() {
-        return categoryId;
+    public String getUser_id() {
+        return user_id;
     }
 
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 
-    public double getAmount() {
-        return amount;
+    public double getTransaction_amount() {
+        return transaction_amount;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+    public void setTransaction_amount(double transaction_amount) {
+        this.transaction_amount = transaction_amount;
     }
 
-    public String getRemarks() {
-        return remarks;
+    public Date getTransaction_time() {
+        return transaction_time;
     }
 
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
+    public void setTransaction_time(Date transaction_time) {
+        this.transaction_time = transaction_time;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getTransaction_notes() {
+        return transaction_notes;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setTransaction_notes(String transaction_notes) {
+        this.transaction_notes = transaction_notes;
     }
 
     @Override
     public String toString() {
-        return "TransactionModel{" +
-                "transactionId='" + transactionId + '\'' +
-                ", categoryId='" + categoryId + '\'' +
-                ", userId='" + userId + '\'' +
-                ", amount=" + amount +
-                ", timestamp=" + timestamp +
-                ", remarks='" + remarks + '\'' +
+        return "Transaction{" +
+                "transaction_id='" + transaction_id + '\'' +
+                ", category_id='" + category_id + '\'' +
+                ", user_id='" + user_id + '\'' +
+                ", transaction_amount=" + transaction_amount +
+                ", transaction_time=" + transaction_time +
+                ", transaction_notes='" + transaction_notes + '\'' +
                 '}';
     }
 }

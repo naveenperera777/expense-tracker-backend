@@ -12,6 +12,7 @@ public class TransactionResponseDTObject {
     private String categoryName;
     private String categoryType;
 
+
     public String getTransactionId() {
         return transactionId;
     }
