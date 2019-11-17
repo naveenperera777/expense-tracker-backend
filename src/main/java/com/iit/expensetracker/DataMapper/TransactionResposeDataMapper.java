@@ -18,10 +18,10 @@ public class TransactionResposeDataMapper implements RowMapper<TransactionRespon
         transactionResponseDTObject.setCategoryId(resultSet.getString("category_id"));
         transactionResponseDTObject.setTransactionId(resultSet.getString("transaction_id"));
         transactionResponseDTObject.setAmount(resultSet.getDouble("transaction_amount"));
-        transactionResponseDTObject.setTimestamp(resultSet.getTimestamp("timestamp"));
-        transactionResponseDTObject.setRemarks(resultSet.getString("remarks"));
-        transactionResponseDTObject.setCategoryName(resultSet.getString("category"));
-        transactionResponseDTObject.setCategoryType(resultSet.getString("type"));
+        transactionResponseDTObject.setTimestamp(resultSet.getTimestamp("transaction_time"));
+        transactionResponseDTObject.setRemarks(resultSet.getString("transaction_notes"));
+        transactionResponseDTObject.setCategoryName(resultSet.getString("category_name"));
+        transactionResponseDTObject.setCategoryType(resultSet.getString("category_type"));
         return transactionResponseDTObject;
     }
 }

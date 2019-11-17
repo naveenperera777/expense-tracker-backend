@@ -29,20 +29,20 @@ public class Transaction extends ResponseController {
         return sendResponse(transactionService.getAllTransactionsByUserId(user_id));
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity transactionEditById(@PathVariable("id") String id, @RequestBody TransactionDto transactionDto, @RequestHeader("user") String user){
-//        return sendResponse(transactionService.transactionEditById(id, transactionDto, user));
-//    }
-//
-//    @GetMapping("/month/{month}")
-//    public ResponseEntity retrieveAllTransactionsByMonth(@PathVariable("month") String month, @RequestHeader("user") String user){
-//        return sendResponse(transactionService.retrieveAllTransactionsByMonth(month, user));
-//    }
-//
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity transactionDeleteById(@PathVariable("id") String transactionId){
-//        return sendResponse(transactionService.transactionDeleteById(transactionId));
-//    }
+    @PutMapping("/{id}")
+    public ResponseEntity transactionEditById(@PathVariable("id") String id, @RequestBody TransactionDTObject transactionDto, @RequestHeader("user") String user){
+        return sendResponse(transactionService.transactionEditById(id, transactionDto, user));
+    }
+
+    @GetMapping("/time/{month}")
+    public ResponseEntity retrieveAllTransactionsByMonth(@PathVariable("month") String month, @RequestHeader("user") String user){
+        return sendResponse(transactionService.retrieveAllTransactionsByMonth(month, user));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity transactionDeleteById(@PathVariable("id") String transactionId){
+        return sendResponse(transactionService.transactionDeleteById(transactionId));
+    }
 
 
 }

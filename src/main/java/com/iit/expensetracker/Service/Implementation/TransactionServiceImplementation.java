@@ -4,6 +4,7 @@ import com.iit.expensetracker.DAO.CategoryDAObject;
 import com.iit.expensetracker.DAO.TransactionDAObject;
 import com.iit.expensetracker.DAO.UserDAObject;
 import com.iit.expensetracker.Dto.TransactionDTObject;
+import com.iit.expensetracker.Dto.TransactionResponseDTObject;
 import com.iit.expensetracker.Model.Transaction;
 import com.iit.expensetracker.Model.User;
 import com.iit.expensetracker.Response.Response;
@@ -49,49 +50,42 @@ public class TransactionServiceImplementation implements TransactionService {
         List transactionList = transactionDAObject.getAllTransactionsByUserId(userId);
         if (transactionList.isEmpty())
             return new Response(ResponseMessage.NO_RECORD, "No Transactions found for this user!");
-
-//        CategoryModel categoryModel = categoryDAO.getCategoryById();
-//        for (int i=0; i<transactionList.size(); i++){
-//            TransactionResponseDto responseDto = new TransactionResponseDto();
-////            responseDto
-//        }
-
         return new Response(ResponseMessage.SUCCESS, transactionList);
     }
 
-//    @Override
-//    public Object transactionEditById(String id, TransactionDto transactionDto, String userId) {
-//        TransactionModel transactionModel = transactionDAO.getTransactionById(id);
-//        if (transactionModel == null)
-//            return new Response(ResponseMessage.NO_RECORD, "No such Transaction found");
-//        TransactionModel editTransaction = new TransactionModel();
-//        editTransaction.setTransactionId(id);
-//        editTransaction.setCategoryId(transactionDto.getCategoryId());
-//        editTransaction.setUserId(userId);
-//        editTransaction.setAmount(transactionDto.getAmount());
-//        editTransaction.setRemarks(transactionDto.getRemarks());
-//        Date date = new Date();
-//        editTransaction.setTimestamp(date);
-//        transactionDAO.editTransactionById(editTransaction);
-//        return new Response(ResponseMessage.SUCCESS, transactionDto);
-//    }
-//
-//    @Override
-//    public Object retrieveAllTransactionsByMonth(String month, String userId) {
-//        List<TransactionResponseDto> transactionModelList = transactionDAO.getTransactionsByMonth(month,userId);
-//        if (transactionModelList.isEmpty())
-//            return new Response(ResponseMessage.NO_RECORD, null);
-//        return new Response(ResponseMessage.SUCCESS, transactionModelList);
-//    }
-//
-//    @Override
-//    public Object transactionDeleteById(String transactionId) {
-//        TransactionModel transactionModel = transactionDAO.getTransactionById(transactionId);
-//        if (transactionModel == null)
-//            return new Response(ResponseMessage.NO_RECORD, "No such Transaction found");
-//        transactionDAO.deleteTransactionById(transactionId);
-//        return new Response(ResponseMessage.SUCCESS, "User deleted Successfully");
-//    }
+    @Override
+    public Object transactionEditById(String id, TransactionDTObject transactionDto, String userId) {
+        Transaction transaction = transactionDAObject.getTransactionById(id);
+        if (transaction == null)
+            return new Response(ResponseMessage.NO_RECORD, "No such Transaction found");
+        Transaction changeTransaction = new Transaction();
+        changeTransaction.setTransaction_id(id);
+        changeTransaction.setCategory_id(transactionDto.getCategory_id());
+        changeTransaction.setUser_id(userId);
+        changeTransaction.setTransaction_amount(transactionDto.getTransaction_amount());
+        changeTransaction.setTransaction_notes(transactionDto.getTransaction_notes());
+        Date date = new Date();
+        changeTransaction.setTransaction_time(date);
+        transactionDAObject.transactionEditById(changeTransaction);
+        return new Response(ResponseMessage.SUCCESS, transactionDto);
+    }
+
+    @Override
+    public Object retrieveAllTransactionsByMonth(String month, String userId) {
+        List<TransactionResponseDTObject> transactionResponseDTObjects = transactionDAObject.getTransactionsByMonth(month,userId);
+        if (transactionResponseDTObjects.isEmpty())
+            return new Response(ResponseMessage.NO_RECORD, null);
+        return new Response(ResponseMessage.SUCCESS, transactionResponseDTObjects);
+    }
+
+    @Override
+    public Object transactionDeleteById(String transactionId) {
+        Transaction transactionModel = transactionDAObject.getTransactionById(transactionId);
+        if (transactionModel == null)
+            return new Response(ResponseMessage.NO_RECORD, "No such Transaction found");
+        transactionDAObject.deleteTransactionById(transactionId);
+        return new Response(ResponseMessage.SUCCESS, "User deleted Successfully");
+    }
 
     public Transaction copy(TransactionDTObject transactionDTObject, String userId){
         final String uuid = UUID.randomUUID().toString().replace("-", "");

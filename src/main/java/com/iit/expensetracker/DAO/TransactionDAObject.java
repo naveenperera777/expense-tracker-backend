@@ -43,7 +43,7 @@ public class TransactionDAObject {
         }
     }
 
-    public void editTransactionById(Transaction transaction){
+    public void transactionEditById(Transaction transaction){
         logger.info("Transaction edit {}", transaction.toString());
         String sql = "UPDATE transaction SET transaction_id=?,user_Id=?,category_id=?,transaction_amount=?,transaction_notes=?, transaction_time=? WHERE transaction_id=?";
         jdbcTemplate.update(sql,transaction.getTransaction_id(), transaction.getUser_id(), transaction.getCategory_id(), transaction.getTransaction_amount(), transaction.getTransaction_notes(), transaction.getTransaction_time(), transaction.getTransaction_id());
