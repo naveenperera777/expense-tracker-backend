@@ -81,9 +81,9 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public Object getTransactionsByMonth(String month, String userId) {
-        List<TransactionModel> transactionModelList = transactionDAO.getTransactionsByMonth(month,userId);
+        List<TransactionResponseDto> transactionModelList = transactionDAO.getTransactionsByMonth(month,userId);
         if (transactionModelList.isEmpty())
-            return new Response(ResponseMessage.NO_RECORD, "null");
+            return new Response(ResponseMessage.NO_RECORD, null);
         return new Response(ResponseMessage.SUCCESS, transactionModelList);
     }
 }
