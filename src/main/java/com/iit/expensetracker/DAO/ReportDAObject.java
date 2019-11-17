@@ -1,5 +1,6 @@
 package com.iit.expensetracker.DAO;
 
+import com.iit.expensetracker.DataMapper.CategoryLimitDataMapper;
 import com.iit.expensetracker.DataMapper.TransactionResposeDataMapper;
 import com.iit.expensetracker.Dto.CategoryLimitResponseDTObject;
 import org.slf4j.Logger;
@@ -20,8 +21,8 @@ public class ReportDAObject {
     }
 
     public List<CategoryLimitResponseDTObject> getAllCategoriesWithExpensesAndLimit(String userId, String month) {
-        String sql = "SELECT * , SUM(amount) as totalAmount FROM transaction LEFT JOIN category ON transaction.categoryId = category.categoryId WHERE transaction.userId=? &&  CONCAT(YEAR(timestamp),'-',MONTH(timestamp)) =? GROUP BY category.category";
-        return jdbcTemplate.query(sql, new String[]{userId, month}, new TransactionResposeDataMapper());
+        String sql = "SELECT * , SUM(transaction_amount) as totalAmount FROM transaction LEFT JOIN category ON transaction.category_id = category.category_id WHERE transaction.user_id=? &&  CONCAT(YEAR(transaction_time),'-',MONTH(transaction_time)) =? GROUP BY category.category_name";
+        return jdbcTemplate.query(sql, new String[]{userId, month}, new CategoryLimitDataMapper());
     }
 
 }
