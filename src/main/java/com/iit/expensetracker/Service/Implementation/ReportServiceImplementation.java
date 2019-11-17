@@ -1,6 +1,8 @@
 package com.iit.expensetracker.Service.Implementation;
 
 import com.iit.expensetracker.DAO.ReportDAObject;
+import com.iit.expensetracker.Dto.CategoryLimitResponseDTObject;
+import com.iit.expensetracker.Dto.CategoryPercentageReponseDTObject;
 import com.iit.expensetracker.Dto.CategoryResponseDTObject;
 import com.iit.expensetracker.Response.Response;
 import com.iit.expensetracker.Service.ReportService;
@@ -21,12 +23,12 @@ public class ReportServiceImplementation implements ReportService {
 
     @Override
     public Object getAllCategoriesWithExpensesAndLimit(String userId, String month) {
-        List<CategoryResponseDTObject> categoryList = reportDAObject.getAllCategoriesWithExpensesAndLimit(userId, month);
+        List<CategoryLimitResponseDTObject> categoryList = reportDAObject.getAllCategoriesWithExpensesAndLimit(userId, month);
         if (categoryList.isEmpty())
             return new Response(ResponseMessage.NO_RECORD, "No records found");
-        List<CategoryPercentageDto> listWithPercentage = new ArrayList<>();
-        for (CategoryResponseDTObject category : categoryList) {
-            CategoryPercentageDto categoryPercentageDto = new CategoryPercentageDto();
+        List<CategoryPercentageReponseDTObject> listWithPercentage = new ArrayList<>();
+        for (CategoryLimitResponseDTObject category : categoryList) {
+            CategoryPercentageReponseDTObject categoryPercentageDto = new CategoryPercentageReponseDTObject();
             categoryPercentageDto.setUserId(category.getUserId());
             categoryPercentageDto.setCategoryId(category.getCategoryId());
             categoryPercentageDto.setCategory(category.getCategory());
