@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 16, 2019 at 11:56 AM
+-- Generation Time: Nov 17, 2019 at 06:32 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `expense-tracker`
+-- Database: `tracker`
 --
 
 -- --------------------------------------------------------
@@ -29,19 +29,19 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `category` (
-  `categoryId` varchar(255) NOT NULL,
-  `userId` varchar(255) NOT NULL,
-  `category` varchar(255) NOT NULL,
-  `type` varchar(255) NOT NULL,
-  `exp_limit` double NOT NULL
+  `category_id` varchar(255) NOT NULL,
+  `user_id` varchar(255) NOT NULL,
+  `category_name` varchar(255) NOT NULL,
+  `category_limit` varchar(255) NOT NULL,
+  `category_type` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `category`
 --
 
-INSERT INTO `category` (`categoryId`, `userId`, `category`, `type`, `exp_limit`) VALUES
-('ccc21041-63ea-4fef-9023-27e91d300cb4', '7fa65ff0-4a3e-4cc5-b975-fae5c16b385e', 'drink', 'expense', 1000);
+INSERT INTO `category` (`category_id`, `user_id`, `category_name`, `category_limit`, `category_type`) VALUES
+('4b06a1b4437e446bb61d3292c406a7b0', '123', 'travel', '1000.0', 'expense');
 
 -- --------------------------------------------------------
 
@@ -50,24 +50,20 @@ INSERT INTO `category` (`categoryId`, `userId`, `category`, `type`, `exp_limit`)
 --
 
 CREATE TABLE `transaction` (
-  `transactionId` varchar(255) NOT NULL,
-  `categoryId` varchar(255) NOT NULL,
-  `amount` double NOT NULL,
-  `remarks` varchar(255) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `userId` varchar(255) NOT NULL
+  `transaction_id` varchar(255) NOT NULL,
+  `category_id` varchar(255) NOT NULL,
+  `user_id` varchar(255) NOT NULL,
+  `transaction_amount` double NOT NULL,
+  `transaction_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `transaction_notes` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `transaction`
 --
 
-INSERT INTO `transaction` (`transactionId`, `categoryId`, `amount`, `remarks`, `timestamp`, `userId`) VALUES
-('0f47de02-c9f8-4539-92c2-70d151bb43f6', '12', 900, 'For the drink last night!', '2019-11-16 07:43:39', ''),
-('12', '13', 34, '434', '2019-11-06 21:30:00', ''),
-('13', '13', 34, '434', '2019-11-06 21:30:00', ''),
-('803e2d03-c8ed-4b82-9459-435153c945e7', '12', 900, 'For the drink last night!', '2019-11-16 08:20:09', '7fa65ff0-4a3e-4cc5-b975-fae5c16b385e'),
-('e14c8ae6-916a-4a69-999d-8af2437ebae8', '12', 900, 'For the drink last night!', '2019-11-16 10:46:53', '7fa65ff0-4a3e-4cc5-b975-fae5c16b385e');
+INSERT INTO `transaction` (`transaction_id`, `category_id`, `user_id`, `transaction_amount`, `transaction_time`, `transaction_notes`) VALUES
+('8d2f7c0f1f8f4d2ba36b0c70af974eb2', '9428a16b-d76f-414b-bd25-ecc59b2a43cb', '123', 900, '2019-11-17 15:25:41', 'Nexe week Travel');
 
 -- --------------------------------------------------------
 
@@ -80,16 +76,15 @@ CREATE TABLE `user` (
   `firstName` varchar(255) NOT NULL,
   `lastName` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `city` varchar(255) NOT NULL
+  `telephoneNumber` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`userId`, `firstName`, `lastName`, `email`, `city`) VALUES
-('7fa65ff0-4a3e-4cc5-b975-fae5c16b385e', 'Naveen', 'Perera', 'naveenperera777@gmail.com', 'colombo'),
-('a8344dbb-fd0e-41cc-8e00-7610494e1121', 'Naveen', 'Perera', 'naveenperera777@gmail.com', 'colombo');
+INSERT INTO `user` (`userId`, `firstName`, `lastName`, `email`, `telephoneNumber`) VALUES
+('123', 'OR', 'Perera', 'naveenperera777@gmail.com', 'colombo');
 
 --
 -- Indexes for dumped tables
@@ -99,13 +94,13 @@ INSERT INTO `user` (`userId`, `firstName`, `lastName`, `email`, `city`) VALUES
 -- Indexes for table `category`
 --
 ALTER TABLE `category`
-  ADD PRIMARY KEY (`categoryId`);
+  ADD PRIMARY KEY (`category_id`);
 
 --
 -- Indexes for table `transaction`
 --
 ALTER TABLE `transaction`
-  ADD PRIMARY KEY (`transactionId`);
+  ADD PRIMARY KEY (`transaction_id`);
 
 --
 -- Indexes for table `user`
