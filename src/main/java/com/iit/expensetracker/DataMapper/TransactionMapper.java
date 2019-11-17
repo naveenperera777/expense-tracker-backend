@@ -15,12 +15,12 @@ public class TransactionMapper implements RowMapper<Transaction> {
     @Override
     public Transaction mapRow(ResultSet resultSet, int i) throws SQLException {
         Transaction transaction = new Transaction();
-        transaction.setUserId(resultSet.getString("userId"));
-        transaction.setTransactionId(resultSet.getString("transactionId"));
-        transaction.setCategoryId(resultSet.getString("categoryId"));
-        transaction.setAmount(resultSet.getDouble("amount"));
-        transaction.setRemarks(resultSet.getString("remarks"));
-        transaction.setTimestamp(resultSet.getTimestamp("timestamp"));
+        transaction.setUser_id(resultSet.getString("user_id"));
+        transaction.setTransaction_id(resultSet.getString("transaction_id"));
+        transaction.setCategory_id(resultSet.getString("category_id"));
+        transaction.setTransaction_amount(resultSet.getDouble("transaction_amount"));
+        transaction.setTransaction_notes(resultSet.getString("transaction_notes"));
+        transaction.setTransaction_time(resultSet.getTimestamp("transaction_time"));
 
         return transaction;
     }

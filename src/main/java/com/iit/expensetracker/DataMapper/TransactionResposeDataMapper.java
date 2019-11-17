@@ -13,17 +13,15 @@ public class TransactionResposeDataMapper implements RowMapper<TransactionRespon
 
     @Override
     public TransactionResponseDTObject mapRow(ResultSet resultSet, int i) throws SQLException {
-        TransactionResponseDTObject transactionModel = new TransactionResponseDTObject();
-        transactionModel.setUserId(resultSet.getString("userId"));
-        transactionModel.setCategoryId(resultSet.getString("categoryId"));
-        transactionModel.setTransactionId(resultSet.getString("transactionId"));
-        transactionModel.setAmount(resultSet.getDouble("amount"));
-        transactionModel.setTimestamp(resultSet.getTimestamp("timestamp"));
-        transactionModel.setRemarks(resultSet.getString("remarks"));
-        transactionModel.setCategoryName(resultSet.getString("category"));
-//        categoryModel.setType(CategoryEnum.valueOf(resultSet.getString("type")));
-        transactionModel.setCategoryType(resultSet.getString("type"));
-//        transactionModel.getCategoryType(resultSet.getString("type"));
-        return transactionModel;
+        TransactionResponseDTObject transactionResponseDTObject = new TransactionResponseDTObject();
+        transactionResponseDTObject.setUserId(resultSet.getString("user_id"));
+        transactionResponseDTObject.setCategoryId(resultSet.getString("category_id"));
+        transactionResponseDTObject.setTransactionId(resultSet.getString("transaction_id"));
+        transactionResponseDTObject.setAmount(resultSet.getDouble("transaction_amount"));
+        transactionResponseDTObject.setTimestamp(resultSet.getTimestamp("timestamp"));
+        transactionResponseDTObject.setRemarks(resultSet.getString("remarks"));
+        transactionResponseDTObject.setCategoryName(resultSet.getString("category"));
+        transactionResponseDTObject.setCategoryType(resultSet.getString("type"));
+        return transactionResponseDTObject;
     }
 }

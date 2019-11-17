@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("transaction")
+@RequestMapping("/transaction")
 @RestController
 public class Transaction extends ResponseController {
     private final TransactionService transactionService;
@@ -24,25 +24,25 @@ public class Transaction extends ResponseController {
         return sendResponse(transactionService.saveTransaction(userId, transactionDTObject));
     }
 
-    @GetMapping("/user")
-    public ResponseEntity getAllTransactionsByUserId(@RequestHeader("user") String userId ){
-        return sendResponse(transactionService.getAllTransactionsByUserId(userId));
+    @GetMapping("/all")
+    public ResponseEntity getAllTransactionsByUserId(@RequestHeader("user_id") String user_id ){
+        return sendResponse(transactionService.getAllTransactionsByUserId(user_id));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity editTransactionById(@PathVariable("id") String id, @RequestBody TransactionDto transactionDto, @RequestHeader("user") String user){
-        return sendResponse(transactionService.editTransactionById(id, transactionDto, user));
-    }
-
-    @GetMapping("/month/{month}")
-    public ResponseEntity getTransactionsByMonth(@PathVariable("month") String month, @RequestHeader("user") String user){
-        return sendResponse(transactionService.getTransactionsByMonth(month, user));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity deleteTransactionById(@PathVariable("id") String transactionId){
-        return sendResponse(transactionService.deleteTransactionById(transactionId));
-    }
+//    @PutMapping("/{id}")
+//    public ResponseEntity transactionEditById(@PathVariable("id") String id, @RequestBody TransactionDto transactionDto, @RequestHeader("user") String user){
+//        return sendResponse(transactionService.transactionEditById(id, transactionDto, user));
+//    }
+//
+//    @GetMapping("/month/{month}")
+//    public ResponseEntity retrieveAllTransactionsByMonth(@PathVariable("month") String month, @RequestHeader("user") String user){
+//        return sendResponse(transactionService.retrieveAllTransactionsByMonth(month, user));
+//    }
+//
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity transactionDeleteById(@PathVariable("id") String transactionId){
+//        return sendResponse(transactionService.transactionDeleteById(transactionId));
+//    }
 
 
 }

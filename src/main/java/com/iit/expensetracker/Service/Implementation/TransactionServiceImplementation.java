@@ -33,15 +33,8 @@ public class TransactionServiceImplementation implements TransactionService {
         User user = userDAObject.getUserById(userId);
         if (user == null)
             return new Response(ResponseMessage.NO_RECORD, "User Not Found!");
-        Transaction transaction = new Transaction();
-        UUID uuid = UUID.randomUUID();
-        transaction.setTransactionId(uuid.toString());
-        transaction.setUserId(userId);
-        transaction.setCategoryId(transactionDTObject.getCategoryId());
-        transaction.setAmount(transactionDTObject.getAmount());
-        transaction.setRemarks(transactionDTObject.getRemarks());
-        Date date = new Date();
-        transaction.setTimestamp(date);
+
+        Transaction transaction = copy(transactionDTObject, userId);
 
         transactionDAObject.saveTransaction(transaction);
         return new Response(ResponseMessage.SUCCESS, transaction);
@@ -64,5 +57,53 @@ public class TransactionServiceImplementation implements TransactionService {
 //        }
 
         return new Response(ResponseMessage.SUCCESS, transactionList);
+    }
+
+//    @Override
+//    public Object transactionEditById(String id, TransactionDto transactionDto, String userId) {
+//        TransactionModel transactionModel = transactionDAO.getTransactionById(id);
+//        if (transactionModel == null)
+//            return new Response(ResponseMessage.NO_RECORD, "No such Transaction found");
+//        TransactionModel editTransaction = new TransactionModel();
+//        editTransaction.setTransactionId(id);
+//        editTransaction.setCategoryId(transactionDto.getCategoryId());
+//        editTransaction.setUserId(userId);
+//        editTransaction.setAmount(transactionDto.getAmount());
+//        editTransaction.setRemarks(transactionDto.getRemarks());
+//        Date date = new Date();
+//        editTransaction.setTimestamp(date);
+//        transactionDAO.editTransactionById(editTransaction);
+//        return new Response(ResponseMessage.SUCCESS, transactionDto);
+//    }
+//
+//    @Override
+//    public Object retrieveAllTransactionsByMonth(String month, String userId) {
+//        List<TransactionResponseDto> transactionModelList = transactionDAO.getTransactionsByMonth(month,userId);
+//        if (transactionModelList.isEmpty())
+//            return new Response(ResponseMessage.NO_RECORD, null);
+//        return new Response(ResponseMessage.SUCCESS, transactionModelList);
+//    }
+//
+//    @Override
+//    public Object transactionDeleteById(String transactionId) {
+//        TransactionModel transactionModel = transactionDAO.getTransactionById(transactionId);
+//        if (transactionModel == null)
+//            return new Response(ResponseMessage.NO_RECORD, "No such Transaction found");
+//        transactionDAO.deleteTransactionById(transactionId);
+//        return new Response(ResponseMessage.SUCCESS, "User deleted Successfully");
+//    }
+
+    public Transaction copy(TransactionDTObject transactionDTObject, String userId){
+        final String uuid = UUID.randomUUID().toString().replace("-", "");
+        Transaction transaction = new Transaction();
+        transaction.setTransaction_id(uuid);
+        transaction.setUser_id(userId);
+        transaction.setCategory_id(transactionDTObject.getCategory_id());
+        transaction.setTransaction_amount(transactionDTObject.getTransaction_amount());
+        transaction.setTransaction_notes(transactionDTObject.getTransaction_notes());
+        Date date = new Date();
+        transaction.setTransaction_time(date);
+
+        return transaction;
     }
 }
