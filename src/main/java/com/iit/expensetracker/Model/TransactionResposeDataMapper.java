@@ -22,9 +22,7 @@ public class TransactionResposeDataMapper implements RowMapper<TransactionRespon
         transactionModel.setTimestamp(resultSet.getTimestamp("timestamp"));
         transactionModel.setRemarks(resultSet.getString("remarks"));
         transactionModel.setCategoryName(resultSet.getString("category"));
-//        categoryModel.setType(CategoryEnum.valueOf(resultSet.getString("type")));
         transactionModel.setCategoryType(resultSet.getString("type"));
-//        transactionModel.getCategoryType(resultSet.getString("type"));
         return transactionModel;
     }
 }
