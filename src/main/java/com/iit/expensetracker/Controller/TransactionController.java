@@ -39,5 +39,10 @@ public class TransactionController extends ResponseController {
         return sendResponse(transactionService.getTransactionsByMonth(month, user));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteTransactionById(@PathVariable("id") String transactionId){
+        return sendResponse(transactionService.deleteTransactionById(transactionId));
+    }
+
 
 }

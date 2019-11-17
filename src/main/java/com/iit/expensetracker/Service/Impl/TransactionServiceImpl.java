@@ -86,4 +86,13 @@ public class TransactionServiceImpl implements TransactionService {
             return new Response(ResponseMessage.NO_RECORD, null);
         return new Response(ResponseMessage.SUCCESS, transactionModelList);
     }
+
+    @Override
+    public Object deleteTransactionById(String transactionId) {
+        TransactionModel transactionModel = transactionDAO.getTransactionById(transactionId);
+        if (transactionModel == null)
+            return new Response(ResponseMessage.NO_RECORD, "No such Transaction found");
+        transactionDAO.deleteTransactionById(transactionId);
+        return new Response(ResponseMessage.SUCCESS, "User deleted Successfully");
+    }
 }

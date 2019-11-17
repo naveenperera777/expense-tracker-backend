@@ -56,5 +56,10 @@ public class TransactionDAO {
         return jdbcTemplate.query(sql, new String[]{user,month}, new TransactionResposeDataMapper());
     }
 
+    public void deleteTransactionById(String id){
+        String sql = "DELETE FROM transaction WHERE transactionId=?";
+        jdbcTemplate.update(sql,id);
+    }
+
 
 }
