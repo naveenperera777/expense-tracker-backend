@@ -50,5 +50,11 @@ public class TransactionDAO {
         jdbcTemplate.update(sql,transactionModel.getTransactionId(), transactionModel.getUserId(), transactionModel.getCategoryId(), transactionModel.getAmount(), transactionModel.getRemarks(), transactionModel.getTimestamp(), transactionModel.getTransactionId());
     }
 
+    public List<TransactionModel> getTransactionsByMonth(String month, String user){
+        logger.info("Get transactions for {} in {} period", month, user);
+        String sql = "SELECT * FROM transaction WHERE userId=? &&  CONCAT(YEAR(timestamp),'-',MONTH(timestamp)) =?";
+        return jdbcTemplate.query(sql, new String[]{user,month}, new TransactionDataMapper());
+    }
+
 
 }

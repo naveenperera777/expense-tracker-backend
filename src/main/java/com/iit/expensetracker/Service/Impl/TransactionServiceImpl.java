@@ -78,4 +78,12 @@ public class TransactionServiceImpl implements TransactionService {
        transactionDAO.editTransactionById(editTransaction);
        return new Response(ResponseMessage.SUCCESS, transactionDto);
     }
+
+    @Override
+    public Object getTransactionsByMonth(String month, String userId) {
+        List<TransactionModel> transactionModelList = transactionDAO.getTransactionsByMonth(month,userId);
+        if (transactionModelList.isEmpty())
+            return new Response(ResponseMessage.NO_RECORD, "No Transactions made during inquired period");
+        return new Response(ResponseMessage.SUCCESS, transactionModelList);
+    }
 }

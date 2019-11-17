@@ -6,4 +6,5 @@ public interface TransactionService {
     Object saveTransaction(String userId, TransactionDto transactionDto);
     Object getAllTransactionsByUserId(String userId);
     Object editTransactionById(String id, TransactionDto transactionDto, String user);
+    Object getTransactionsByMonth(String month, String userId);
 }

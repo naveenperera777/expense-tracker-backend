@@ -34,5 +34,10 @@ public class TransactionController extends ResponseController {
         return sendResponse(transactionService.editTransactionById(id, transactionDto, user));
     }
 
+    @GetMapping("/month/{month}")
+    public ResponseEntity getTransactionsByMonth(@PathVariable("month") String month, @RequestHeader("user") String user){
+        return sendResponse(transactionService.getTransactionsByMonth(month, user));
+    }
+
 
 }
