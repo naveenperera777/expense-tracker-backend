@@ -34,6 +34,7 @@ public class Category extends ResponseController {
         return sendResponse(categoryService.getAllCategoriesForAUserByUserId(user_id));
     }
 
+    @Deprecated
     @GetMapping
     public ResponseEntity<Object> getAllCategories(){
         return sendResponse(categoryService.getAllCategories());
