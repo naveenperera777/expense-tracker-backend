@@ -4,6 +4,7 @@ import com.iit.expensetracker.DAO.ReportDAObject;
 import com.iit.expensetracker.Dto.CategoryLimitResponseDTObject;
 import com.iit.expensetracker.Dto.CategoryPercentageReponseDTObject;
 import com.iit.expensetracker.Dto.CategoryResponseDTObject;
+import com.iit.expensetracker.Dto.OverAllDto;
 import com.iit.expensetracker.Response.Response;
 import com.iit.expensetracker.Service.ReportService;
 import com.iit.expensetracker.enums.ResponseMessage;
@@ -49,4 +50,19 @@ public class ReportServiceImplementation implements ReportService {
         }
         return new Response(ResponseMessage.SUCCESS, listWithPercentage);
     }
+
+    @Override
+    public Object getTransactionSummaryOverAllByMonth(String userId, String month) {
+        CategoryLimitResponseDTObject expenses =   reportDAObject.getExpensesSummary(userId,month);
+        CategoryLimitResponseDTObject income = reportDAObject.getIncomeSummary(userId, month);
+        OverAllDto overAllDto = new OverAllDto();
+        overAllDto.setUserId(userId);
+        overAllDto.setMonth(month);
+        overAllDto.setExpenses((int)expenses.getTotalExpenes());
+        overAllDto.setIncome((int) income.getTotalExpenes());
+        int balnce = (int) income.getTotalExpenes() - (int) expenses.getTotalExpenes();
+        overAllDto.setBalance(balnce);
+        return overAllDto;
+    }
+
 }

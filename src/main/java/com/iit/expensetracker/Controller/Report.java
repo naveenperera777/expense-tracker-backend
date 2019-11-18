@@ -5,10 +5,7 @@ import com.iit.expensetracker.Service.ReportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/report")
@@ -25,6 +22,9 @@ public class Report extends ResponseController {
         return sendResponse(reportService.getAllCategoriesWithExpensesAndLimit(userId, month));
     }
 
-    @GetMapping
-    public ResponseEntity
+    @GetMapping("/overall/{month}")
+    public ResponseEntity<Object> getTransactionSummaryOverAllByMonth(@RequestHeader("user_id") String userId, @PathVariable("month") String month){
+        return sendResponse(reportService.getTransactionSummaryOverAllByMonth(userId,month));
+    }
+
 }

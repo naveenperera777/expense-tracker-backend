@@ -25,4 +25,14 @@ public class ReportDAObject {
         return jdbcTemplate.query(sql, new String[]{userId, month}, new CategoryLimitDataMapper());
     }
 
+    public CategoryLimitResponseDTObject getExpensesSummary(String userId, String month){
+        String sql = "SELECT * , SUM(transaction_amount) as totalAmount FROM transaction LEFT JOIN category ON transaction.category_id = category.category_id WHERE transaction.user_id=? &&  CONCAT(YEAR(transaction_time),'-',MONTH(transaction_time)) =? && category.category_type='expense'";
+        return jdbcTemplate.queryForObject(sql,new String[]{userId,month} , new CategoryLimitDataMapper());
+    }
+
+    public CategoryLimitResponseDTObject getIncomeSummary(String userId, String month){
+        String sql = "SELECT * , SUM(transaction_amount) as totalAmount FROM transaction LEFT JOIN category ON transaction.category_id = category.category_id WHERE transaction.user_id=? &&  CONCAT(YEAR(transaction_time),'-',MONTH(transaction_time)) =? && category.category_type='income'";
+        return jdbcTemplate.queryForObject(sql,new String[]{userId,month} , new CategoryLimitDataMapper());
+    }
+
 }
