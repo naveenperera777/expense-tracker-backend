@@ -3,7 +3,6 @@ package com.iit.expensetracker.Service.Implementation;
 import com.iit.expensetracker.DAO.ReportDAObject;
 import com.iit.expensetracker.Dto.CategoryLimitResponseDTObject;
 import com.iit.expensetracker.Dto.CategoryPercentageReponseDTObject;
-import com.iit.expensetracker.Dto.CategoryResponseDTObject;
 import com.iit.expensetracker.Dto.OverAllDto;
 import com.iit.expensetracker.Response.Response;
 import com.iit.expensetracker.Service.ReportService;
@@ -58,8 +57,8 @@ public class ReportServiceImplementation implements ReportService {
         OverAllDto overAllDto = new OverAllDto();
         overAllDto.setUserId(userId);
         overAllDto.setMonth(month);
-        overAllDto.setExpenses((int)expenses.getTotalExpenes());
-        overAllDto.setIncome((int) income.getTotalExpenes());
+        overAllDto.setExpenses((int)expenses.getTotalAmount());
+        overAllDto.setIncome((int) income.getTotalAmount());
         int balnce = (int) income.getTotalExpenes() - (int) expenses.getTotalExpenes();
         overAllDto.setBalance(balnce);
         return overAllDto;

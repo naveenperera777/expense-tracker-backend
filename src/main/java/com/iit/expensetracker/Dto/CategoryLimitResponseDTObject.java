@@ -7,6 +7,7 @@ public class CategoryLimitResponseDTObject {
     private String type;
     private double limit;
     private double totalExpenes;
+    private double totalAmount;
 
     public String getUserId() {
         return userId;
@@ -56,4 +57,11 @@ public class CategoryLimitResponseDTObject {
         this.totalExpenes = totalExpenes;
     }
 
+    public double getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
 }

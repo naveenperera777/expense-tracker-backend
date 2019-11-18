@@ -18,6 +18,7 @@ public class CategoryLimitDataMapper implements RowMapper<CategoryLimitResponseD
         categoryLimitResponseDto.setType(resultSet.getString("category_type"));
         categoryLimitResponseDto.setLimit(resultSet.getDouble("category_limit"));
         categoryLimitResponseDto.setTotalExpenes(resultSet.getDouble("transaction_amount"));
+        categoryLimitResponseDto.setTotalAmount(resultSet.getDouble("totalAmount"));
         return categoryLimitResponseDto;
     }
 }
