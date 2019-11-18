@@ -24,4 +24,7 @@ public class Report extends ResponseController {
     public ResponseEntity<Object> getAllCategoriesWithExpensesAndLimit(@RequestHeader("user") String userId, @RequestHeader("month") String month){
         return sendResponse(reportService.getAllCategoriesWithExpensesAndLimit(userId, month));
     }
+
+    @GetMapping
+    public ResponseEntity
 }
