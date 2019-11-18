@@ -26,6 +26,17 @@ public class ReportDAO {
         String sql = "SELECT * , SUM(amount) as totalAmount FROM transaction LEFT JOIN category ON transaction.categoryId = category.categoryId WHERE transaction.userId=? &&  CONCAT(YEAR(timestamp),'-',MONTH(timestamp)) =? GROUP BY category.category";
         return jdbcTemplate.query(sql,new String[]{userId,month} , new CategoryLimitResponseDataMapper());
     }
+
+
+    public CategoryLimitResponseDto getExpensesSummary(String userId, String month){
+//        logger.info("getAllCategoriesWithExpensesAndLimit {} for month {}",userId,month);
+        String sql = "SELECT * , SUM(amount) as totalAmount FROM transaction LEFT JOIN category ON transaction.categoryId = category.categoryId WHERE transaction.userId=? &&  CONCAT(YEAR(timestamp),'-',MONTH(timestamp)) =? && category.type='expense'";
+        return jdbcTemplate.queryForObject(sql,new String[]{userId,month} , new CategoryLimitResponseDataMapper());
+    }
+
+    public CategoryLimitResponseDto getIncomeSummary(String userId, String month){
+//        logger.info("getAllCategoriesWithExpensesAndLimit {} for month {}",userId,month);
+        String sql = "SELECT * , SUM(amount) as totalAmount FROM transaction LEFT JOIN category ON transaction.categoryId = category.categoryId WHERE transaction.userId=? &&  CONCAT(YEAR(timestamp),'-',MONTH(timestamp)) =? && category.type='income'";
+        return jdbcTemplate.queryForObject(sql,new String[]{userId,month} , new CategoryLimitResponseDataMapper());
+    }
 }
-
-

@@ -3,6 +3,7 @@ package com.iit.expensetracker.Service.Impl;
 import com.iit.expensetracker.DAO.ReportDAO;
 import com.iit.expensetracker.Dto.CategoryLimitResponseDto;
 import com.iit.expensetracker.Dto.CategoryPercentageDto;
+import com.iit.expensetracker.Dto.SummaryResponseDto;
 import com.iit.expensetracker.Response.Response;
 import com.iit.expensetracker.Service.ReportService;
 import com.iit.expensetracker.enums.ResponseMessage;
@@ -49,5 +50,19 @@ public class ReportServiceImpl implements ReportService {
             listWithPercentage.add(categoryPercentageDto);
         }
         return new Response(ResponseMessage.SUCCESS, listWithPercentage);
+    }
+
+    @Override
+    public Object getTransactionSummary(String userId, String month) {
+        CategoryLimitResponseDto expenses =   reportDAO.getExpensesSummary(userId,month);
+        CategoryLimitResponseDto income = reportDAO.getIncomeSummary(userId, month);
+        SummaryResponseDto summaryResponseDto = new SummaryResponseDto();
+        summaryResponseDto.setUserId(userId);
+        summaryResponseDto.setMonth(month);
+        summaryResponseDto.setExpenses((int)expenses.getTotalExpenes());
+        summaryResponseDto.setIncome((int) income.getTotalExpenes());
+        int balnce = (int) income.getTotalExpenes() - (int) expenses.getTotalExpenes();
+        summaryResponseDto.setBalance(balnce);
+        return summaryResponseDto;
     }
 }
